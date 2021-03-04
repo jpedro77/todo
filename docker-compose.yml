@@ -1,0 +1,41 @@
+version: '3'
+services:
+  app:
+    container_name: app
+    restart: always  
+    build: ./app
+    volumes:  
+      - ./app:/var/www/
+    depends_on:  
+      - db
+    entrypoint: ./entrypoint.sh
+  db:  
+    container_name: db
+    image: postgres:12.0-alpine  
+    restart: always  
+    environment:  
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres  
+      POSTGRES_DB: todo
+      POSTGRES_PORT: 5432
+    volumes:  
+      - dbdata:/var/lib/postgresql/data
+  nginx:  
+    container_name: nginx
+    build: ./.docker/nginx  
+    restart: always
+    ports:  
+      - "8000:80"
+    volumes:  
+      - ./app:/var/www
+    depends_on:  
+      - app
+      
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+volumes:
+  dbdata:
+    driver: local
