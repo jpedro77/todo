@@ -10,21 +10,29 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
-        "@inertiajs/inertia": "^0.8.4",
+        "@inertiajs/inertia": "^0.8.2",
         "@inertiajs/inertia-vue3": "^0.3.5",
         "@inertiajs/progress": "^0.2.4",
         "@tailwindcss/forms": "^0.2.1",
         "@tailwindcss/typography": "^0.3.0",
         "@vue/compiler-sfc": "^3.0.5",
+        "alpinejs": "^2.7.3",
         "autoprefixer": "^10.0.2",
         "axios": "^0.19",
+        "bootstrap": "^4.6.0",
         "cross-env": "^7.0",
+        "jquery": "^3.5.1",
+        "laravel-jetstream": "^0.0.3",
         "laravel-mix": "^6.0.0-beta.17",
         "lodash": "^4.17.19",
+        "popper.js": "^1.16.1",
         "postcss-import": "^12.0.1",
         "resolve-url-loader": "^3.1.0",
+        "sass": "^1.32.8",
+        "sass-loader": "^10.1.1",
         "tailwindcss": "^2.0.1",
         "vue": "^3.0.5",
-        "vue-loader": "^16.1.2"
+        "vue-loader": "^16.1.2",
+        "vue-template-compiler": "^2.6.12"
     }
 }

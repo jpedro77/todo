@@ -13,6 +13,10 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN addgroup -g 1000 www
 RUN adduser -u 1000 -s /bin/bash -S www -G www
 
+COPY package.json .
+
+RUN npm install --quiet
+
 # Copy existing application directory contents
 COPY . /var/www
 

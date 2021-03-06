@@ -4,8 +4,10 @@ services:
     container_name: app
     restart: always  
     build: ./app
+    command: npm run dev
     volumes:  
       - ./app:/var/www/
+      - /var/www/node_modules
     depends_on:  
       - db
     entrypoint: ./entrypoint.sh
@@ -30,7 +32,6 @@ services:
       - ./app:/var/www
     depends_on:  
       - app
-      
   adminer:
     image: adminer
     restart: always
