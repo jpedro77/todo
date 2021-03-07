@@ -34,7 +34,7 @@ Route::get('/todo-priority/{id}', [TodoPriorityController::class, 'show']);
 Route::put('/todo-priority/{id}', [TodoPriorityController::class, 'update']);
 Route::delete('/todo-priority/{id}', [TodoPriorityController::class, 'destroy']);
 
-// Route::get('/user', [UserController::class, 'index']);
+Route::get('/user', [UserController::class, 'index']);
 // Route::post('/user', [UserController::class, 'store']);
 // Route::get('/user/{id}', [UserController::class, 'show']);
 // Route::put('/user/{id}', [UserController::class, 'update']);

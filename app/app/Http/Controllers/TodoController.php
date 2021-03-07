@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Todo;
+use Redirect;
 use Illuminate\Http\Request;
 
 class TodoController extends Controller
@@ -35,8 +36,7 @@ class TodoController extends Controller
         $description = $request->input('description');
         $id_user = $request->input('id_user');
         $id_todo_priority = $request->input('id_todo_priority');
-        $deadline_at = $request->input('deadline_at');
-        $completed_at = $request->input('completed_at');
+        $deadline_at = $request->input('deadline');
 
         $data = [
             'title' => $title,
@@ -44,12 +44,12 @@ class TodoController extends Controller
             'id_user' => $id_user,
             'id_todo_priority' => $id_todo_priority,
             'deadline_at' => $deadline_at,
-            'completed_at' => $completed_at
+            'completed_at' => date("Y-m-d h:i:s")
         ];
 
         $todo = Todo::create($data);
 
-        return response()->json($todo);
+        return Redirect::to('/dashboard');
     }
 
     /**

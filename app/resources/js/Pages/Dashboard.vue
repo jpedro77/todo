@@ -12,7 +12,7 @@
 
 <script>
     import AppLayout from '@/Layouts/AppLayout'
-    import AppContent from '@/Jetstream/AppContent'
+    import AppContent from '@/Layouts/AppContent'
 
     export default {
         components: {

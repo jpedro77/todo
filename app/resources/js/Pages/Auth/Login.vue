@@ -25,20 +25,27 @@
             <jet-checkbox id="remember_me" name="remember" v-model:checked="form.remember" />
 
             <label class="custom-control-label" for="remember_me">
-              Lembre-se de min
+              Lembre-se de mim
             </label>
           </div>
         </div>
 
         <div class="mb-0">
-          <div class="d-flex justify-content-end align-items-baseline">
-            <inertia-link v-if="canResetPassword" :href="route('password.request')" class="text-muted mr-3">
-              Esqueceu sua Senha?
+          <div class="d-flex justify-content-between align-items-baseline">
+              <inertia-link v-if="canResetPassword" :href="route('password.request')" class="text-muted mr-3">
+                Esqueceu sua Senha?
+              </inertia-link>
+              <jet-button class="ml-4" :class="{ 'text-white-50': form.processing }" :disabled="form.processing">
+                Entrar
+              </jet-button>
+          </div>
+        </div>
+        <div class="mb-0 mt-5">
+          <div class="d-flex justify-content-start align-items-baseline">
+            Novo por aqui?
+            <inertia-link v-if="canResetPassword" :href="route('register')" class="text-muted ml-1">
+              Cadastre-se.
             </inertia-link>
-
-            <jet-button class="ml-4" :class="{ 'text-white-50': form.processing }" :disabled="form.processing">
-              Entrar
-            </jet-button>
           </div>
         </div>
       </form>

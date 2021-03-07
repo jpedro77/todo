@@ -19,7 +19,7 @@ class CreateTableTodos extends Migration
             $table->text('description');
             $table->integer('id_user')->nullable(false);
             $table->integer('id_todo_priority')->nullable(false);
-            $table->timestamp('deadline_at', $precision = 0);
+            $table->date('deadline_at');
             $table->timestamp('completed_at', $precision = 0)->nullable(true);
             $table->timestamps();
             $table->foreign('id_user')->references('id')->on('users');

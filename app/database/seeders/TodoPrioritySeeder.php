@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\TodoPriority;
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
 class TodoPrioritySeeder extends Seeder
 {
@@ -14,6 +15,10 @@ class TodoPrioritySeeder extends Seeder
      */
     public function run()
     {
-        TodoPriority::factory(5)->create();
+        \DB::table('todo_priorities')->insert([
+            ['name' => 'Alta', 'created_at' => Carbon::now()->format('Y-m-d H:i:s'), 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')],
+            ['name' => 'Média', 'created_at' => Carbon::now()->format('Y-m-d H:i:s'), 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')],
+            ['name' => 'Baixa', 'created_at' => Carbon::now()->format('Y-m-d H:i:s'), 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')]
+        ]);
     }
 }

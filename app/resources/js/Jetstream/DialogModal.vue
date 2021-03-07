@@ -29,7 +29,7 @@
     components: {
       Modal,
     },
-
+    emits: ["close"],
     props: {
       id: {
         type: String,
