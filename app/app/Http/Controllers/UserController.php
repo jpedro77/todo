@@ -41,7 +41,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $todo = User::find($id);
+        return response()->json($todo);
     }
 
     /**
@@ -69,5 +70,13 @@ class UserController extends Controller
             return true;
         }
         return false;
+    }
+
+    public function todo($id)
+    {
+        $user = User::with('todo')->where('id', $id)->first();
+
+        $todo = isset($user->todo) ? $user->todo : null;
+        return response()->json($todo);
     }
 }

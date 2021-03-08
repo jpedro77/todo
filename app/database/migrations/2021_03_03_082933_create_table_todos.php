@@ -17,13 +17,13 @@ class CreateTableTodos extends Migration
             $table->bigIncrements('id');
             $table->string('title', 150);
             $table->text('description');
-            $table->integer('id_user')->nullable(false);
-            $table->integer('id_todo_priority')->nullable(false);
+            $table->integer('user_id')->nullable(false);
+            $table->integer('todo_priority_id')->nullable(false);
             $table->date('deadline_at');
             $table->timestamp('completed_at', $precision = 0)->nullable(true);
             $table->timestamps();
-            $table->foreign('id_user')->references('id')->on('users');
-            $table->foreign('id_todo_priority')->references('id')->on('todo_priorities');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('todo_priority_id')->references('id')->on('todo_priorities');
         });
     }
 

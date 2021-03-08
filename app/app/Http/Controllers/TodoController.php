@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Todo;
 use Redirect;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class TodoController extends Controller
 {
@@ -15,8 +16,8 @@ class TodoController extends Controller
      */
     public function index()
     {
-        $todos = Todo::all();
-        return response()->json($todos);
+        $todoList = Todo::with('user')->get();
+        return response()->json($todoList);
 
     }
 
@@ -32,24 +33,25 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        $title = $request->input('title');
-        $description = $request->input('description');
-        $id_user = $request->input('id_user');
-        $id_todo_priority = $request->input('id_todo_priority');
-        $deadline_at = $request->input('deadline');
+        $data = $request->all();
 
-        $data = [
-            'title' => $title,
-            'description' => $description,
-            'id_user' => $id_user,
-            'id_todo_priority' => $id_todo_priority,
-            'deadline_at' => $deadline_at,
-            'completed_at' => date("Y-m-d h:i:s")
-        ];
+        // validar os dados
+        $validator = Validator::make($data, [
+            'title' => 'required|max:255',
+            'description' => 'required|max:255',
+            'user_id' => 'required|exists:App\Models\User,id',
+            'todo_priority_id' => 'required|exists:App\Models\TodoPriority,id',
+            'deadline_at' => 'required|date'
+        ]);
 
+        if($validator->fails()){
+            return response(['error' => $validator->errors(), 'Validation Error']);
+        }
+
+        // armazenar os dados
         $todo = Todo::create($data);
 
-        return Redirect::to('/dashboard');
+        return [response()->json($todo)];
     }
 
     /**
@@ -77,17 +79,34 @@ class TodoController extends Controller
     {
         $title = $request->input('title');
         $description = $request->input('description');
-        $id_user = $request->input('id_user');
-        $id_todo_priority = $request->input('id_todo_priority');
-        $deadline_at = $request->input('deadline_at');
-        $completed_at = $request->input('completed_at');
+        $user_id = $request->input('user_id');
+        $todo_priority_id = $request->input('todo_priority_id');
+        $deadline_at = $request->input('deadline');
 
         $todo = Todo::find($id);
         $todo->title = $title;
         $todo->description = $description;
-        $todo->id_user = $id_user;
-        $todo->id_todo_priority = $id_todo_priority;
+        $todo->user_id = $user_id;
+        $todo->todo_priority_id = $todo_priority_id;
         $todo->deadline_at = $deadline_at;
+
+        $todo->save();
+
+        return response()->json($todo);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param int $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function conclude(Request $request, $id)
+    {
+        $completed_at = $request->input('completed_at');
+
+        $todo = Todo::find($id);
         $todo->completed_at = $completed_at;
 
         $todo->save();

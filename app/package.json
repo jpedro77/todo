@@ -40,6 +40,8 @@
         "@fortawesome/free-solid-svg-icons": "^5.15.2",
         "@fortawesome/vue-fontawesome": "^3.0.0-3",
         "@popperjs/core": "^2.9.0",
-        "v-calendar": "^3.0.0-alpha.3"
+        "moment": "^2.29.1",
+        "v-calendar": "^3.0.0-alpha.3",
+        "vue-sweetalert2": "^4.2.0"
     }
 }

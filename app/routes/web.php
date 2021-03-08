@@ -28,9 +28,19 @@ Route::get('/', function () {
 });
 
 Route::get('/add-todo', function () {
-    return Inertia::render('AddTodo');
+    return Inertia::render('FormTodo', [
+        'type' => 'add'
+    ]);
+});
+
+Route::get('/edit-todo', function () {
+    return Inertia::render('FormTodo', [
+        'type' => 'edit'
+    ]);
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    return Inertia::render('Dashboard', [
+        'showFormTodo' => false
+    ]);
 })->name('dashboard');

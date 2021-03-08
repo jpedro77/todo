@@ -12,9 +12,14 @@ class Todo extends Model
     protected $fillable = [
         'title',
         'description',
-        'id_user',
-        'id_todo_priority',
+        'user_id',
+        'todo_priority_id',
         'deadline_at',
         'completed_at',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
