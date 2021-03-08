@@ -35,6 +35,8 @@ class TodoController extends Controller
     {
         $data = $request->all();
 
+        $data['deadline_at'] = implode('-', array_reverse(explode('/', $data['deadline_at'])));
+
         // validar os dados
         $validator = Validator::make($data, [
             'title' => 'required|max:255',
@@ -77,18 +79,29 @@ class TodoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $title = $request->input('title');
-        $description = $request->input('description');
-        $user_id = $request->input('user_id');
-        $todo_priority_id = $request->input('todo_priority_id');
-        $deadline_at = $request->input('deadline');
+        $data = $request->all();
+
+        $data['deadline_at'] = implode('-', array_reverse(explode('/', $data['deadline_at'])));
+
+        // validar os dados
+        $validator = Validator::make($data, [
+            'title' => 'required|max:255',
+            'description' => 'required|max:255',
+            'user_id' => 'required|exists:App\Models\User,id',
+            'todo_priority_id' => 'required|exists:App\Models\TodoPriority,id',
+            'deadline_at' => 'required|date'
+        ]);
+
+        if($validator->fails()){
+            return response(['error' => $validator->errors(), 'Validation Error']);
+        }
 
         $todo = Todo::find($id);
-        $todo->title = $title;
-        $todo->description = $description;
-        $todo->user_id = $user_id;
-        $todo->todo_priority_id = $todo_priority_id;
-        $todo->deadline_at = $deadline_at;
+        $todo->title = $data['title'];
+        $todo->description = $data['description'];
+        $todo->user_id = $data['user_id'];
+        $todo->todo_priority_id = $data['todo_priority_id'];
+        $todo->deadline_at = $data['deadline_at'];
 
         $todo->save();
 

@@ -6,12 +6,12 @@ services:
     build: ./app
     command: npm run dev
     volumes:  
-      - ./app:/var/www/
+      - appdata:/var/www/
       - /var/www/node_modules
     depends_on:  
       - db
     entrypoint: ./entrypoint.sh
-  db:  
+  db:
     container_name: db
     image: postgres:12.0-alpine  
     restart: always  
@@ -29,7 +29,7 @@ services:
     ports:  
       - "8000:80"
     volumes:  
-      - ./app:/var/www
+      - appdata:/var/www
     depends_on:  
       - app
   adminer:
@@ -38,5 +38,6 @@ services:
     ports:
       - 8080:8080
 volumes:
+  appdata:
   dbdata:
     driver: local

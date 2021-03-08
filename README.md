@@ -4,12 +4,18 @@ Projeto com o objetivo de criar uma aplicação que possa gerenciar tarefas (`TO
 
 ## Instalação
 
-### Criando os Serviços
+### Criando os Serviços e instalando dependências
 
-Na instalação irá gerar alguns serviços para funcionamento do Sistema, são eles: PostgreSql, Ngnix e PHP-fpm. No arquivo build do docker-compose (Dockerfile) exitem algumas pré-instalações, como o `composer install` e o `npm install`.
+Na instalação irá gerar alguns serviços para funcionamento do Sistema, são eles: PostgreSql, Ngnix e PHP-FPM. No arquivo build do docker-compose (Dockerfile) exitem algumas pré-instalações e configurações, como o `npm install`.
 
 ```
 docker-compose up -d --build
+```
+
+Agora será necessário executar o `composer install` para instalar as dependências do sistema
+
+```
+docker-compose exec app composer install
 ```
 
 ## Utilização

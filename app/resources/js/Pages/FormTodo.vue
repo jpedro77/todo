@@ -37,7 +37,7 @@
                     </div>
                     <div class="col-md-4">
                         <label for="deadline_at">Deadline</label>
-                        <DatePicker v-model="form.deadline_at">
+                        <!-- <DatePicker v-model="form.deadline_at">
                             <template v-slot="{ inputValue, inputEvents }">
                                 <input
                                     class="bg-white border px-2 py-1 rounded"
@@ -46,7 +46,8 @@
                                     required
                                 />
                             </template>
-                        </DatePicker>
+                        </DatePicker> -->
+                        <input class="form-control form-control-sm" type="text" id="datepicker" v-model="form.deadline_at">
                     </div>
                 </div>
             </div>
@@ -64,10 +65,11 @@
         </form>
     </fieldset>
 </template>
-
 <script>
 import JetValidationErrors from '@/Jetstream/ValidationErrors'
 import moment from 'moment'
+// import 'jquery';
+// import 'jquery-ui';
 
 export default {
     props: {
@@ -89,7 +91,7 @@ export default {
                 ],
                 todo_priority_id: 1,
                 priorities: [],
-                deadline_at: new Date()
+                deadline_at: moment(new Date()).format('DD/MM/YYYY')
             })
         }
     },
@@ -102,8 +104,18 @@ export default {
             this.form.description = this.edit.description
             this.form.user_id = this.edit.user_id
             this.form.todo_priority_id = this.edit.todo_priority_id
-            this.form.deadline_at = moment(this.edit.deadline_at).format('YYYY-MM-DD')
+            this.form.deadline_at = moment(this.edit.deadline_at).format('DD/MM/YYYY')
         }
+
+        const vm = this;
+        $( "#datepicker" ).datepicker({
+            dateFormat: "dd/mm/yy",
+            onSelect: function(d,i){
+                if(d !== i.lastVal){
+                    vm.form.deadline_at = d
+                }
+            }
+        })
     },
     methods: {
         toast(){
@@ -122,8 +134,8 @@ export default {
         submit() {
             let dados = this.form,
                 vm = this
-            
-            dados.deadline_at = moment(dados.deadline_at).format('YYYY-MM-DD')
+            // console.log('dados.deadline_at',dados.deadline_at)
+            // dados.deadline_at = moment(dados.deadline_at).format('YYYY-MM-DD')
 
             if(this.type == 'add'){
                 axios.post('api/todo', dados)
@@ -146,7 +158,7 @@ export default {
             }else{
                 axios.put('api/todo/' + dados.id, dados)
                 
-                Toast.fire({
+                this.toast().fire({
                     icon: 'success',
                     title: 'tarefa Editada!'
                 })
@@ -163,8 +175,8 @@ export default {
             this.form.title = '',
             this.form.description = ''
             this.form.user_id = ''
-            this.form.todo_priority_id = ''
-            this.form.deadline_at = new Date()
+            this.form.todo_priority_id = 1
+            this.form.deadline_at = moment(new Date()).format('DD/MM/YYYY')
         }
     }
 }

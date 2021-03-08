@@ -21,6 +21,7 @@
         "axios": "^0.19",
         "bootstrap": "^4.6.0",
         "cross-env": "^7.0",
+        "expose-loader": "^2.0.0",
         "jquery": "^3.5.1",
         "laravel-jetstream": "^0.0.3",
         "laravel-mix": "^6.0.0-beta.17",
@@ -40,6 +41,8 @@
         "@fortawesome/free-solid-svg-icons": "^5.15.2",
         "@fortawesome/vue-fontawesome": "^3.0.0-3",
         "@popperjs/core": "^2.9.0",
+        "jquery-ui": "^1.12.1",
+        "jquery-ui-timepicker-addon": "^1.6.3",
         "moment": "^2.29.1",
         "v-calendar": "^3.0.0-alpha.3",
         "vue-sweetalert2": "^4.2.0"
