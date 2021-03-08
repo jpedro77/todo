@@ -11,3 +11,11 @@ Na instalação irá gerar alguns serviços para funcionamento do Sistema, são 
 ```
 docker-compose up -d --build
 ```
+
+## Utilização
+
+Após as configurações e instalações serem concluídas, basta ir em seu navegador e digitar a seguinte url
+
+```
+http://localhost:8000
+```
